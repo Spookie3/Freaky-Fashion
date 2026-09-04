@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+
+# Compiled output
+dist/
+out-tsc/
+tmp/
+temp/
+*.tsbuildinfo
+
+# Framework and test caches
+.angular/cache/
+.cache/
+coverage/
+__screenshots__/
+
+# Local databases
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editors
+.idea/
+.history/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.project
+.classpath
+.settings/
+*.sublime-workspace
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
