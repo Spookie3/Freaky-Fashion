@@ -1,0 +1,84 @@
+﻿<header class="form-heading"><p class="eyebrow">Product management</p><h1>Add a new product</h1><p>Enter the product details below. All fields are required.</p></header>
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <div class="field">
+    <label for="title">Product name</label>
+    <input id="title" type="text" formControlName="title" />
+    @if (productForm.controls.title.touched && productForm.controls.title.invalid) {
+      <p>Product name is required.</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="description">Description</label>
+    <textarea rows="5" placeholder="Describe the fit, material, and details..." id="description" formControlName="description"></textarea>
+    @if (productForm.controls.description.touched && productForm.controls.description.invalid) {
+      <p>Description is required.</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="imageurl">Image URL</label>
+    <input id="imageurl" type="text" placeholder="/productImages/product_01.png" formControlName="imageurl" />
+    @if (productForm.controls.imageurl.touched && productForm.controls.imageurl.invalid) {
+      <p>Image URL is required.</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="brand">Brand</label>
+    <input id="brand" type="text" formControlName="brand" />
+    @if (productForm.controls.brand.touched && productForm.controls.brand.invalid) {
+      <p>Brand is required.</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="sku">SKU</label>
+    <input
+      id="sku"
+      type="text"
+      formControlName="SKU"
+      pattern="[A-Za-z]{3}[0-9]{3}"
+      maxlength="6"
+      placeholder="ABC123"
+    />
+    @if (productForm.controls.SKU.touched && productForm.controls.SKU.hasError('required')) {
+      <p>SKU is required.</p>
+    } @else if (productForm.controls.SKU.touched && productForm.controls.SKU.hasError('pattern')) {
+      <p>SKU must contain three letters followed by three numbers, for example ABC123.</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="price">Price (SEK)</label>
+    <input id="price" type="number" formControlName="price" min="0" step="0.01" />
+    @if (productForm.controls.price.touched && productForm.controls.price.invalid) {
+      <p>Enter a price of zero or more.</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="date">Date</label>
+    <input id="date" type="date" formControlName="date" />
+    @if (productForm.controls.date.touched && productForm.controls.date.invalid) {
+      <p>Date is required.</p>
+    }
+  </div>
+
+  <div class="form-actions"><button type="submit" [disabled]="isSubmitting">
+    {{ isSubmitting ? 'Adding product...' : 'Add product' }}
+  </button></div>
+
+  @if (submitted && productForm.invalid) {
+    <p class="feedback error" role="alert">Please correct the highlighted fields.</p>
+  }
+
+  @if (successMessage) {
+    <p class="feedback success" role="status">{{ successMessage }}</p>
+  }
+
+  @if (errorMessage) {
+    <p class="feedback error" role="alert">{{ errorMessage }}</p>
+  }
+</form>
+

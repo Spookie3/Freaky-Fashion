@@ -1,16 +1,22 @@
 import db from '../database';
 import type { NewProduct, Product } from '../models/product';
 
+export function getAllProducts(): Product[] {
+  return db
+    .prepare('SELECT * FROM products ORDER BY id DESC')
+    .all() as Product[];
+}
+
 export function getRecentProducts(): Product[] {
   return db
     .prepare('SELECT * FROM products ORDER BY id DESC LIMIT 8')
     .all() as Product[];
 }
 
-export function getProductsBySku(sku: string): Product[] {
+export function getProductsBySku(sku: string, excludeId = 0): Product[] {
   return db
-    .prepare('SELECT * FROM products WHERE SKU LIKE ? ORDER BY id DESC LIMIT 5')
-    .all(`%${sku}%`) as Product[];
+    .prepare('SELECT * FROM products WHERE SKU LIKE ? AND id != ? ORDER BY id DESC LIMIT 5')
+    .all(`%${sku}%`, excludeId) as Product[];
 }
 
 export function searchProducts(query: string): Product[] {
@@ -35,10 +41,18 @@ export function getProductById(id: number): Product | undefined {
 export function createProduct(input: NewProduct): Product {
   const result = db
     .prepare(`
-      INSERT INTO products (title, SKU, price, imageurl)
-      VALUES (?, ?, ?, ?)
+      INSERT INTO products (title, description, brand, SKU, price, imageurl, date)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
     `)
-    .run(input.title, input.SKU, input.price, input.imageurl);
+    .run(
+      input.title,
+      input.description,
+      input.brand,
+      input.SKU,
+      input.price,
+      input.imageurl,
+      input.date
+    );
 
   return getProductById(Number(result.lastInsertRowid)) as Product;
 }

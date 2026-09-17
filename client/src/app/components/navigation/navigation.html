@@ -1,0 +1,32 @@
+﻿<header class="site-header">
+  <div class="header-main">
+    <a class="logo-link" routerLink="/start" aria-label="Go to the start page">
+      <img class="logo" src="/freaky-fashion-logo.svg" alt="Freaky Fashion" />
+    </a>
+
+    <form class="search" role="search" (submit)="$event.preventDefault(); search()">
+      <label class="visually-hidden" for="product-search">Search products</label>
+      <input id="product-search" type="search" [formControl]="searchTerm" placeholder="Search products" />
+      <button type="submit">Search</button>
+    </form>
+
+    <div class="header-icons">
+      <svg class="heart-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+        <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z" />
+      </svg>
+    <a class="basket-link" routerLink="/basket" aria-label="Go to basket">
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M3 3h2l2.2 10.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 2-1.6L20.5 7H6M10 20a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm8 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z" />
+      </svg>
+    </a>
+    </div>
+  </div>
+
+  <nav aria-label="Main navigation">
+    <a href="#" (click)="$event.preventDefault()">New arrivals</a>
+    <a href="#" (click)="$event.preventDefault()">Bestsellers</a>
+    <a href="#" (click)="$event.preventDefault()">Sale</a>
+    <a href="#" (click)="$event.preventDefault()">Promotions</a>
+  </nav>
+</header>
+

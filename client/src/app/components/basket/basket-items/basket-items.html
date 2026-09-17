@@ -1,0 +1,60 @@
+﻿<section lang="en" aria-label="Products in your basket" class="text-ink">
+  @if (basket.items().length === 0) {
+    <p class="py-6" role="status">Your basket is empty.</p>
+    <a routerLink="/start" class="underline underline-offset-4">Continue shopping</a>
+  } @else {
+    <table class="basket-table">
+      <caption class="sr-only">Products in your basket</caption>
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Price</th>
+          <th scope="col">Total</th>
+          <th scope="col">Quantity</th>
+          @if (!readonly) { <th scope="col">Delete</th> }
+        </tr>
+      </thead>
+      <tbody>
+      @for (item of basket.items(); track item.id) {
+        <tr>
+          <td class="product-info">
+            <h2 class="font-semibold [overflow-wrap:anywhere]">{{ item.title }}</h2>
+            <p class="mt-1 text-sm text-muted sm:hidden">{{ basket.formatPrice(item.price) }} / each</p>
+          </td>
+          <td class="unit-price text-sm text-muted">{{ basket.formatPrice(item.price) }}</td>
+          <td class="total-cell"><p class="item-total min-w-24 text-right font-semibold" aria-live="polite">{{ basket.formatPrice(basket.itemTotal(item)) }}</p></td>
+          <td>
+          @if (readonly) {
+            <p class="text-sm">Quantity: {{ item.quantity }}</p>
+          } @else {
+            <label class="flex flex-col gap-1 text-sm">
+              <span class="quantity-label">Quantity<span class="sr-only"> for {{ item.title }}</span></span>
+              <input type="number" min="1" step="1" [value]="item.quantity" (change)="changeQuantity(item.id, $event)"
+                class="w-20 rounded border border-outline px-2 py-2 focus-visible:outline-2 focus-visible:outline-highlight" />
+            </label>
+          }
+          </td>
+          @if (!readonly) {
+            <td>
+            <button type="button" (click)="basket.remove(item.id)" [attr.aria-label]="'Remove ' + item.title"
+              class="rounded p-2 hover:bg-surface focus-visible:outline-2 focus-visible:outline-highlight">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+                <path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            </td>
+          }
+        </tr>
+      }
+      </tbody>
+    </table>
+    <p class="basket-total flex justify-between gap-4 py-6 text-lg font-semibold" aria-live="polite">
+      <span>Total</span><span>{{ basket.formatPrice(basket.total()) }}</span>
+    </p>
+    @if (!readonly) {
+      <a routerLink="/checkout" class="block rounded bg-accent px-6 py-3 text-center font-semibold text-white hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-highlight">Proceed to checkout</a>
+    }
+  }
+</section>
+
+

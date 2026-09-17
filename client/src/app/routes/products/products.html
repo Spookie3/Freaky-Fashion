@@ -1,0 +1,27 @@
+﻿<app-navigation />
+<main class="mx-auto max-w-7xl px-4 py-8" lang="en">
+  @if (productId(); as id) {
+    <app-detailed-item class="mx-auto block max-w-lg sm:max-w-none" [productId]="id" (productLoaded)="selectedProduct.next($event)" />
+    <section class="mt-10 hidden sm:block" aria-labelledby="related-heading">
+      <h2 id="related-heading" class="mb-6 text-2xl font-semibold">Related products</h2>
+      @if (related().loading) {
+        <p role="status">Loading related products...</p>
+      } @else if (related().error) {
+        <p role="alert">{{ related().error }}</p>
+      } @else if (related().products.length) {
+        <div class="related-row" role="region" aria-label="Related products" tabindex="0">
+          @for (product of related().products; track product.id) {
+            <app-item [productId]="product.id" />
+          }
+        </div>
+      } @else {
+        <p class="text-muted">No related products were found.</p>
+      }
+    </section>
+  } @else {
+    <h1 class="mb-4 text-2xl font-semibold">Products</h1>
+    <p role="status">Search for a product and select it to view its details.</p>
+  }
+</main>
+<app-footer />
+

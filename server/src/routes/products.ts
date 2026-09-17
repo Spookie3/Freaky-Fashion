@@ -3,6 +3,7 @@ import type { CreateProductBody } from '../models/product';
 import {
   createProduct,
   deleteProduct,
+  getAllProducts,
   getProductById,
   getProductsBySku,
   getRecentProducts,
@@ -18,7 +19,12 @@ router.get('/recent', (_req, res) => {
 
 // Get up to five products whose SKU contains the supplied value.
 router.get('/sku/:sku', (req, res) => {
-  res.json(getProductsBySku(req.params.sku));
+  const excludeId = Number(req.query.excludeId ?? 0);
+  if (!Number.isSafeInteger(excludeId) || excludeId < 0) {
+    res.status(400).json({ message: 'Invalid excluded product id' });
+    return;
+  }
+  res.json(getProductsBySku(req.params.sku, excludeId));
 });
 
 // Get every product whose title or SKU contains the search term.
@@ -32,6 +38,11 @@ router.get('/search', (req, res) => {
   }
 
   res.json(searchProducts(query));
+});
+
+// Get all products for the admin table.
+router.get('/', (_req, res) => {
+  res.json(getAllProducts());
 });
 
 // Get one product by id.
@@ -55,25 +66,32 @@ router.get('/:id', (req, res) => {
 
 // Create a product.
 router.post('/', (req, res) => {
-  const { title, SKU, price, imageurl } = req.body as CreateProductBody;
+  const { title, description, brand, SKU, price, imageurl, date } =
+    req.body as CreateProductBody;
 
   if (
     typeof title !== 'string' || !title.trim() ||
+    typeof description !== 'string' || !description.trim() ||
+    typeof brand !== 'string' || !brand.trim() ||
     typeof SKU !== 'string' || !SKU.trim() ||
     typeof price !== 'number' || !Number.isFinite(price) || price < 0 ||
-    typeof imageurl !== 'string' || !imageurl.trim()
+    typeof imageurl !== 'string' || !imageurl.trim() ||
+    typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)
   ) {
     res.status(400).json({
-      message: 'title, SKU, a non-negative numeric price, and imageurl are required'
+      message: 'title, description, brand, SKU, a non-negative numeric price, imageurl, and a valid date are required'
     });
     return;
   }
 
   const product = createProduct({
     title: title.trim(),
+    description: description.trim(),
+    brand: brand.trim(),
     SKU: SKU.trim(),
     price,
-    imageurl: imageurl.trim()
+    imageurl: imageurl.trim(),
+    date
   });
 
   res.status(201).json(product);

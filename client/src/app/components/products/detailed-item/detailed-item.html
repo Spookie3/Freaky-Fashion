@@ -1,0 +1,32 @@
+﻿<article class="item w-full text-ink" lang="en" [attr.aria-busy]="isLoading()">
+  @if (isLoading()) {
+    <p class="m-0 p-4 text-sm text-muted" role="status">Loading product...</p>
+  } @else if (errorMessage()) {
+    <p class="m-0 p-4 text-sm text-danger" role="alert">{{ errorMessage() }}</p>
+  } @else if (product(); as item) {
+    <div class="detail-layout">
+    <div class="relative isolate overflow-hidden border border-outline bg-surface">
+      <svg class="pointer-events-none absolute inset-0 h-full w-full text-outline" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path d="M0 0 L100 100 M100 0 L0 100" fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" />
+      </svg>
+      <img class="relative block aspect-[3/4] w-full object-contain" [src]="item.imageurl" [alt]="item.title" loading="lazy" />
+      @if (isNew(item)) {
+        <span class="new-badge absolute right-3 top-3 rounded bg-accent px-3 py-1 text-sm font-medium text-white">New</span>
+      }
+    </div>
+    <div class="detail-info">
+      <h1 class="m-0 text-base font-semibold [overflow-wrap:anywhere]">{{ item.title }}</h1>
+      <p class="brand m-0 text-sm text-muted">{{ item.brand }}</p>
+      <p class="whitespace-pre-line text-sm leading-6 text-muted">{{ item.description }}</p>
+      <p class="price m-0 text-sm font-semibold sm:text-base">{{ formatPrice(item.price) }}</p>
+    <button type="button" (click)="addToBasket(item)" class="w-full rounded bg-accent px-4 py-2 text-sm font-semibold text-white hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-highlight">Add to basket</button>
+    @if (addedMessage()) {
+      <p class="mt-2 text-sm text-muted" role="status">{{ addedMessage() }}</p>
+    }
+    </div>
+    </div>
+  }
+</article>
+
+
+

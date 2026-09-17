@@ -1,0 +1,8 @@
+main { padding: 1rem; }
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.5rem; }
+article img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+article h2 { margin-bottom: 0.25rem; font-size: 1.1rem; }
+article p { margin-top: 0; }
+.related-row { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; gap: 1.5rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 1rem; }
+.related-row > app-item { min-width: 0; scroll-snap-align: start; }
+@media (min-width: 640px) { .related-row { grid-auto-columns: calc((100% - 3rem) / 3); } }
