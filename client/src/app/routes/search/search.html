@@ -1,0 +1,24 @@
+﻿<app-navigation />
+<main class="px-4 py-8" lang="en" [attr.aria-busy]="state().loading">
+  <h1 class="mb-4 text-2xl font-semibold">Search results</h1>
+  @if (state().query) {
+    <p class="mb-6">Results for ”{{ state().query }}”</p>
+  }
+  @if (state().loading) {
+    <p role="status">Searching...</p>
+  } @else if (state().error) {
+    <p role="alert">{{ state().error }}</p>
+  } @else if (!state().query) {
+    <p role="status">Enter a search term in the search bar.</p>
+  } @else if (state().products.length === 0) {
+    <p role="status">No products matched your search.</p>
+  } @else {
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      @for (product of state().products; track product.id) {
+        <app-item [productId]="product.id" />
+      }
+    </div>
+  }
+</main>
+<app-footer />
+

@@ -1,0 +1,23 @@
+﻿<section class="overflow-hidden border border-outline bg-surface p-3 text-ink" lang="en" aria-label="Featured product" [attr.aria-busy]="state().loading">
+  @if (state().loading) {
+    <p class="p-8 text-muted" role="status">Loading featured product...</p>
+  } @else if (state().error) {
+    <p class="p-8 text-danger" role="alert">{{ state().error }}</p>
+  } @else if (state().product; as product) {
+    <div class="grid grid-cols-1 lg:grid-cols-2">
+      <div class="order-2 flex min-w-0 flex-col justify-center px-4 py-6 text-center sm:p-8 lg:order-1 lg:p-12 lg:text-left">
+        <h2 class="text-3xl font-semibold leading-tight [overflow-wrap:anywhere] sm:text-4xl lg:text-5xl">{{ product.title }}</h2>
+        <p class="mt-6 whitespace-pre-line text-base leading-relaxed text-muted [overflow-wrap:anywhere] sm:text-lg">{{ product.description }}</p>
+      </div>
+      <div class="relative isolate order-1 aspect-[3/2] min-w-0 overflow-hidden border border-outline bg-page lg:order-2 lg:aspect-auto lg:min-h-80">
+        <svg class="pointer-events-none absolute inset-0 h-full w-full text-outline" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path d="M0 0 L100 100 M100 0 L0 100" fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" />
+        </svg>
+        <img class="absolute inset-0 block h-full w-full object-cover" [src]="product.imageurl" [alt]="product.title" fetchpriority="high" />
+      </div>
+    </div>
+  } @else {
+    <p class="p-8 text-muted" role="status">There are no products to display yet.</p>
+  }
+</section>
+

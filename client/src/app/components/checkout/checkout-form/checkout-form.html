@@ -1,0 +1,37 @@
+﻿<section lang="en" aria-labelledby="customer-details-heading" class="mx-auto w-full max-w-md border border-outline bg-surface px-3.5 pb-6 pt-2 text-ink">
+  <h2 id="customer-details-heading" class="mb-4 text-center text-lg font-medium">Customer details</h2>
+  <div class="grid gap-2">
+    <label for="checkout-first-name">First name</label>
+    <input id="checkout-first-name" type="text" autocomplete="given-name" class="mb-1 h-7 w-full border border-outline bg-surface px-2 focus-visible:outline-2 focus-visible:outline-highlight" />
+
+    <label for="checkout-last-name">Last name</label>
+    <input id="checkout-last-name" type="text" autocomplete="family-name" class="mb-1 h-7 w-full border border-outline bg-surface px-2 focus-visible:outline-2 focus-visible:outline-highlight" />
+
+    <label for="checkout-email">Email</label>
+    <input id="checkout-email" type="email" autocomplete="email" class="h-7 w-full border border-outline bg-surface px-2 focus-visible:outline-2 focus-visible:outline-highlight" />
+  </div>
+
+  <fieldset class="mt-4 border border-outline px-3 pb-6 pt-1">
+    <legend class="px-0.5">Address</legend>
+    <div class="grid gap-2">
+      <label for="checkout-street">Street</label>
+      <input id="checkout-street" type="text" autocomplete="street-address" class="mb-1 h-7 w-full border border-outline bg-surface px-2 focus-visible:outline-2 focus-visible:outline-highlight" />
+
+      <label for="checkout-postcode">Postal code</label>
+      <input id="checkout-postcode" type="text" inputmode="numeric" autocomplete="postal-code" class="mb-1 h-7 w-32 max-w-full border border-outline bg-surface px-2 focus-visible:outline-2 focus-visible:outline-highlight" />
+
+      <label for="checkout-city">City</label>
+      <input id="checkout-city" type="text" autocomplete="address-level2" class="h-7 w-full border border-outline bg-surface px-2 focus-visible:outline-2 focus-visible:outline-highlight" />
+    </div>
+  </fieldset>
+
+  <label class="mt-5 flex items-center gap-1">
+    <input type="checkbox" class="h-3.5 w-3.5 accent-accent" />
+    <span>I would like to receive the newsletter</span>
+  </label>
+
+  <button type="button" class="mx-auto mt-5 block w-42 max-w-full rounded border border-outline bg-accent text-white hover:bg-accent-hover px-6 py-1.5 text-xl font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-highlight">Buy</button>
+</section>
+
+
+

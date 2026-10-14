@@ -1,0 +1,19 @@
+.basket-table { display: block; width: 100%; border-block: 1px solid var(--color-outline); border-collapse: collapse; }
+thead, .unit-price { display: none; }
+tbody { display: block; }
+tbody tr { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; padding-block: 1.25rem; }
+tbody tr + tr { border-top: 1px solid var(--color-outline); }
+td { display: block; }
+.product-info { min-width: 0; flex: 1; }
+@media (min-width: 640px) {
+  .basket-table { display: table; }
+  thead { display: table-header-group; }
+  tbody { display: table-row-group; }
+  tbody tr { display: table-row; }
+  td, .unit-price { display: table-cell; }
+  th, td { padding: 1.5rem 1rem; text-align: left; vertical-align: middle; }
+  th { font-size: 0.875rem; color: var(--color-muted); font-weight: 600; border-bottom: 1px solid var(--color-outline); }
+  .product-info { width: auto; }
+  .unit-price, .total-cell { white-space: nowrap; }
+  .quantity-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}

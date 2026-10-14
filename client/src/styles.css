@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'tailwindcss';
+
+@theme {
+  --color-page: #18171c;
+  --color-surface: #24222b;
+  --color-surface-hover: #35303f;
+  --color-ink: #f5f3ff;
+  --color-muted: #c4bdcf;
+  --color-outline: #80758e;
+  --color-accent: #7e22ce;
+  --color-accent-hover: #6b21a8;
+  --color-highlight: #d8b4fe;
+  --color-danger: #fda4af;
+}
+
+@layer base {
+  html { color-scheme: dark; background: var(--color-page); }
+  body { margin: 0; min-width: 280px; background: var(--color-page); color: var(--color-ink); }
+  a { color: var(--color-highlight); }
+  a:hover { color: var(--color-ink); }
+  input, textarea, select { background: var(--color-surface); color: var(--color-ink); border: 1px solid var(--color-outline); accent-color: var(--color-accent); }
+  input::placeholder, textarea::placeholder { color: var(--color-muted); opacity: 1; }
+  button { cursor: pointer; }
+  button:disabled { cursor: not-allowed; opacity: 0.6; }
+  :focus-visible { outline: 2px solid var(--color-highlight); outline-offset: 3px; }
+  ::selection { background: var(--color-accent); color: white; }
+  [role='alert'] { color: var(--color-danger); }
+  app-admin button { background: var(--color-accent); color: white; border: 1px solid var(--color-outline); border-radius: 0.35rem; padding: 0.5rem 1rem; }
+  app-admin button:hover { background: var(--color-accent-hover); }
+  thead { background: var(--color-surface); color: var(--color-ink); }
+}
